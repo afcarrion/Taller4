@@ -74,7 +74,6 @@ function randomEvent(monkeyRight) {
           setTimeout(randomEvent, 1000, monkeyRight);
         });
         break;
-
       case "a":
         cy.get("a").then($links1 => {
           var randomLink = $links1.get(getRandomInt(0, $links1.length));
