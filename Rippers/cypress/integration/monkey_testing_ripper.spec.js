@@ -4,7 +4,7 @@ describe("Los estudiantes under monkeys", function() {
     cy.contains("Cerrar").click();
     cy.wait(1000);
     //randomClick(1000);
-    randomEvent(10);
+    randomEvent(5);
   });
 });
 
@@ -57,9 +57,10 @@ function randomEvent(monkeyRight) {
     //alert(Math.floor(Math.random() * (max - min)) + min);
     return Math.floor(Math.random() * (max - min)) + min;
   }
-
-  var monkeyRight = monkeyRight;
-  if (monkeyRight > 0) {
+  
+  var monkeyRight1 = monkeyRight;
+  alert(monkeyRight1 >= 0);
+  if (monkeyRight1 >= 0) {
     var eventExecute = getRandomEvent();
 
     switch (eventExecute) {
@@ -68,10 +69,11 @@ function randomEvent(monkeyRight) {
           var randomLink = $links1.get(getRandomInt(0, $links1.length));
           if (!Cypress.dom.isHidden(randomLink)) {
             cy.wrap(randomLink).click({ force: true });
-            monkeyRight = monkeyRight - 1;
+            monkeyRight1 = monkeyRight1 - 1;
           }
           cy.wait(500);
-          setTimeout(randomEvent, 1000, monkeyRight);
+          //setTimeout(randomEvent, 1000, monkeyRight);
+          randomEvent(monkeyRight1);
         });
         break;
       case "a":
@@ -79,10 +81,11 @@ function randomEvent(monkeyRight) {
           var randomLink = $links1.get(getRandomInt(0, $links1.length));
           if (!Cypress.dom.isHidden(randomLink)) {
             cy.wrap(randomLink).click({ force: true });
-            monkeyRight = monkeyRight - 1;
+            monkeyRight1 = monkeyRight1 - 1;
           }
           cy.wait(500);
-          setTimeout(randomEvent, 1000, monkeyRight);
+          //setTimeout(randomEvent, 1000, monkeyRight);
+          randomEvent(monkeyRight1);
         });
         break;
       case "input":
@@ -92,10 +95,11 @@ function randomEvent(monkeyRight) {
             cy.wrap(randomInput)
               .click()
               .type("PruebaMonkey");
-            monkeyRight = monkeyRight - 1;
+            monkeyRight1 = monkeyRight1 - 1;
           }
           cy.wait(500);
-          setTimeout(randomEvent, 1000, monkeyRight);
+          //setTimeout(randomEvent, 1000, monkeyRight);
+          randomEvent(monkeyRight1);
         });
         break;
       case "select":
@@ -108,12 +112,15 @@ function randomEvent(monkeyRight) {
               .then(e => {
                 cy.wrap(randomSelect).select(e.val());
               });
-            monkeyRight = monkeyRight - 1;
+            monkeyRight1 = monkeyRight1 - 1;
           }
-          cy.wait(1000);
-          setTimeout(randomEvent, 1000, monkeyRight);
+          cy.wait(500);
+          //setTimeout(randomEvent, 1000, monkeyRight);
+          randomEvent(monkeyRight1);
         });
         break;
     }
+  }else {
+    console.log("not more monkeys " + monkeyRight1);
   }
 }
