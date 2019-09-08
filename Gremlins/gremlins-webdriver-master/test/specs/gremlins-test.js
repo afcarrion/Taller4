@@ -12,8 +12,8 @@ function loadScript(callback) {
 /**
  * Este método recibe un límite de tiempo en el que debe terminar el ataque de los gremlins
  *  contra la página y crea una armada de gremlins con el método createHorde()
- * @param {seg} ttl
- * @param {llamado a finalizar la prueba} callback
+ * @param {*} ttl
+ * @param {*} callback
  */
 function unleashGremlins(ttl, callback) {
   function stop() {
@@ -31,24 +31,27 @@ function unleashGremlins(ttl, callback) {
   var horde1 = window.gremlins.createHorde();
 
   var formFillerGremlin = gremlins.species.formFiller();
-  var clickerGremlin = gremlins.species.clicker();
+  var clickerGremlin = gremlins.species.clicker().clickTypes(["click"]);
 
   formFillerGremlin.canFillElement(function(element) {
     return true;
   }); // to limit where the gremlin can fill
   clickerGremlin.canClick(function(element) {
-    return true;
+    return (
+      element.tagName.toLowerCase() === "a" ||
+      element.tagName.toLowerCase() === "button"
+    );
+    //return true;
   }); // to limit where the gremlin can click
   horde1.gremlin(formFillerGremlin);
   horde1.gremlin(clickerGremlin);
   horde1.strategy(
     gremlins.strategies
-      .distribution()
-      .delay(50)
       .distribution([
-        0.8, // first gremlin
-        0.2 // second gremlin
+        0.2, // first gremlin
+        0.8 // second gremlin
       ])
+      .delay(50)
   );
   horde1.seed(1234);
   horde1.after(callback);
