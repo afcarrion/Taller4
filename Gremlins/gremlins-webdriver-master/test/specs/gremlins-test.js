@@ -48,8 +48,8 @@ function unleashGremlins(ttl, callback) {
   horde1.strategy(
     gremlins.strategies
       .distribution([
-        0.2, // first gremlin
-        0.8 // second gremlin
+        0.2, // first gremlin Form
+        0.8 // second gremlin Clicks
       ])
       .delay(50)
   );
