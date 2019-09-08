@@ -41,6 +41,15 @@ function unleashGremlins(ttl, callback) {
   }); // to limit where the gremlin can click
   horde1.gremlin(formFillerGremlin);
   horde1.gremlin(clickerGremlin);
+  horde1.strategy(
+    gremlins.strategies
+      .distribution()
+      .delay(50)
+      .distribution([
+        0.8, // first gremlin
+        0.2 // second gremlin
+      ])
+  );
   horde1.seed(1234);
   horde1.after(callback);
   window.onbeforeunload = stop;
