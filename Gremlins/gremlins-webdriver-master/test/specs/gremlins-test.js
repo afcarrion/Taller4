@@ -28,13 +28,19 @@ function unleashGremlins(ttl, callback) {
   //setTimeout(stop, ttl);
   horde.unleash();*/
 
-  var horde1 = window.gremlins
-    .createHorde()
-    .gremlin(gremlins.species.formFiller())
-    .gremlin(
-      gremlins.species.clicker().clickTypes(["click"])
-      //.showAction(function(x, y) {})
-    );
+  var horde1 = window.gremlins.createHorde();
+
+  var formFillerGremlin = gremlins.species.formFiller();
+  var clickerGremlin = gremlins.species.clicker();
+
+  formFillerGremlin.canFillElement(function(element) {
+    return true;
+  }); // to limit where the gremlin can fill
+  clickerGremlin.canClick(function(element) {
+    return true;
+  }); // to limit where the gremlin can click
+  horde1.gremlin(formFillerGremlin);
+  horde1.gremlin(clickerGremlin);
   horde1.seed(1234);
   horde1.after(callback);
   window.onbeforeunload = stop;
